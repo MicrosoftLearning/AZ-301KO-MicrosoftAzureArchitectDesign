@@ -46,11 +46,11 @@ lab:
 
 1. Azure Portal의 왼쪽 상단 모서리에서 **리소스 생성** 을 클릭합니다.
 
-1. **마켓플레이스 검색** 텍스트 상자의 **신규** 블레이드 상단에 **Windows Server 2016**를 입력하고 **엔터** 를 누릅니다.
+1. **Marketplace 검색** 텍스트 상자의 **신규** 블레이드 상단에서 **Windows Server**를 입력하고 **Enter** 키를 누릅니다.
 
-1. **모든** 블레이드의 검색 결과에서 **Windows Server 2016 Datacenter** 를 클릭합니다.
+1. **전체** 블레이드의 검색 결과에서 **Windows Server**를 클릭합니다.
 
-1. **Windows Server 2016 Datacenter** 블레이드에서 **생성** 버튼을 클릭합니다.
+1. **Windows Server** 블레이드에서 **[smalldisk] Windows Server 2016 Datacenter** 소프트웨어 플랜을 선택한 다음 **만들기** 단추를 클릭합니다.
 
 1. **기본** 탭에서 다음 작업을 수행합니다.
 
@@ -232,7 +232,7 @@ lab:
 1. 표시되는 **Blob 속성** 팝업에서 **URL** 속성 값을 찾아서 기록합니다. 이 URL은 이 랩에서 나중에 사용합니다.
 
 
-#### 작업 6: Aure Portal의 PowerShell DSC 확장이 포함된 Azure 리소스 관리자 템플릿을 사용하여 Azure VM을 배포합니다.
+#### 작업 6: Azure Portal의 PowerShell DSC 확장이 포함된 Azure Resource Manager 템플릿을 사용하여 Azure VM을 배포합니다.
 
 1. Azure Portal의 왼쪽 상단 모서리에서 **리소스 생성** 을 클릭합니다.
 
@@ -248,7 +248,7 @@ lab:
 
 1. **업로드할 파일 선택** 대화 상자에서 **\\allfiles\\AZ-301T04\\Module_02\\LabFiles\\Starter\\** 폴더로 이동하여 **dsc-extension-template.json** 파일을 선택하고 **열기** 를 클릭합니다. 이렇게 하면 다음 콘텐츠가 템플릿 편집기 창에 로드됩니다.
 
-    ```json
+```json
     {
         "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
         "contentVersion": "1.0.0.0",
@@ -288,7 +288,7 @@ lab:
             }
         ]
     }
-    ```
+```
 
 1. **저장** 버튼을 클릭하여 템플릿을 유지합니다.
 
@@ -340,7 +340,7 @@ lab:
 
 1. 작업 표시줄에서 **파일 탐색기** 아이콘을 클릭합니다.
 
-1. 표시되는 **파일 탐색기** 창에서 **\\\allfiles\\AZ-301T04\\Module_02\LabFiles\\\Starter\\** 폴더로 이동합니다.
+1. 표시되는 파일 **열기** 대화 상자에서 **\\allfiles\\AZ-301T04\\Module_02\\LabFiles\\Starter\\*** 폴더로 이동합니다.
 
 1. **vmss-template.json** 파일을 마우스 오른쪽 단추로 클릭하고 **코드로 열기** 옵션을 선택하여 **비주얼 스튜디오 코드** 응용 프로그램을 시작합니다.
 
@@ -437,7 +437,7 @@ lab:
 
     - **Cloud Shell 지역** 드롭다운 목록에서 이 실습에 리소스를 배포할 위치와 일치 또는 근처에 있는 Azure 지역을 선택합니다.
 
-    - **리소스 그룹** 섹션에서 **새로 생성** 옵션을 선택한 다음 텍스트 상자에 **AADesignLab0303-RG** 를 입력합니다.
+    - **리소스 그룹** 섹션에서 **기존 항목 사용** 옵션이 선택되어 있는지 확인한 다음 **AADesignLab0301-RG**를 선택합니다.
 
     - **스토리지 계정** 섹션에서 **새로 생성** 옵션을 선택한 다음, 아래 텍스트 상자에 3~24개 문자와 숫자로 구성된 고유한 이름을 입력합니다. 
 
@@ -452,41 +452,41 @@ lab:
 
 1. 포털 하단의 **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 Azure Building Blocks npm 패키지를 설치하는 로컬 디렉터리를 만듭니다.
 
-    ```sh
+```sh
     mkdir ~/.npm-global
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 npm 구성을 업데이트하여 새 로컬 디렉터리를 포함시킵니다.
 
-    ```sh
+```sh
     npm config set prefix '~/.npm-global'
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 편집을 위해 ~./bashrc 구성 파일을 엽니다.
 
-    ```sh
+```sh
     vi ~/.bashrc
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트의 vi 편집기 인터페이스에서 파일을 아래쪽으로 스크롤(또는 **G** 를 입력), 마지막 줄의 오른쪽 가장 끝 문자까지 오른쪽으로 스크롤(또는 **$** 를 입력), **a** 를 입력하여 **삽입** 모드를 입력하고, **엔터** 를 눌러 새 줄을 시작한 다음, 다음을 입력하여 새로 만든 디렉터리를 시스템 경로에 추가합니다.
 
-    ```sh
+```sh
     export PATH="$HOME/.npm-global/bin:$PATH"
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트의 vi 편집기 인터페이스에서 변경 내용을 저장하고 파일을 닫기 위해 **Esc** 를 누르고 **:** 를 누른 다음, **wq!** 를 입력한 후 **엔터** 를 누릅니다.
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 Azure Buiding Blocks npm 패키지를 설치합니다.
 
-    ```sh
+```sh
     npm install -g @mspnp/azure-building-blocks
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 셸을 종료합니다.
 
-    ```sh
+```sh
     exit
-    ```
+```
 
 1. **Cloud Shell 시간 초과** 창에서 **재연결** 을 클릭합니다. 
 
@@ -497,57 +497,63 @@ lab:
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 Azure Building Blocks 참조 아키텍처 파일을 포함하는 GitHub 리포지토리를 다운로드합니다.
 
-    ```
+```
     git clone https://github.com/mspnp/reference-architectures.git
-    ```
+```
 
 1.  **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 이 배포에 사용할 Azure Building Block 매개 변수 파일의 내용을 봅니다.
 
-    ```sh
+```sh
     cat ./reference-architectures/virtual-machines/single-vm/parameters/windows/single-vm.json
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 Azure 구독의 이름을 지정하는 변수를 만듭니다.
 
-    ```sh
-    SUBSCRIPTION_ID=$(az account list --query "[0].id" | tr -d '"')
-    ```
+```sh
+    SUBSCRIPTION_ID=$(az account list --query "[0].id" --output tsv | tr -d '"')
+```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 이 실습 초반에 만든 리소스 그룹의 이름을 지정하는 변수를 만듭니다.
 
-    ```sh
+```sh
     RESOURCE_GROUP='AADesignLab0303-RG'
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 배포에 사용할 Azure 영역을 지정하는 변수를 만듭니다.
 
-    ```sh
+```sh
     LOCATION=$(az group list --query "[?name == 'AADesignLab0301-RG'].location" --output tsv)
-    ```
+```
+    
+1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 배포에 사용할 리소스 그룹을 만듭니다.
+
+```sh
+    az group create --name $RESOURCE_GROUP --location $LOCATION
+```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 **adminUsername** 매개 변수의 자리 표시자를 Building Blocks 매개 변수 파일의 **학생** 값으로 바꿉니다.
 
-    ```sh
+```sh
     sed -i.bak1 's/"adminUsername": ""/"adminUsername": "Student"/' ./reference-architectures/virtual-machines/single-vm/parameters/windows/single-vm.json
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 **adminPassword** 매개 변수의 자리 표시자를 Building Blocks 매개 변수 파일에서 **Pa55w.rd1234** 값으로 바꾸십시오.
 
-    ```sh
+```sh
     sed -i.bak2 's/"adminPassword": ""/"adminPassword": "Pa55w.rd1234"/' ./reference-architectures/virtual-machines/single-vm/parameters/windows/single-vm.json
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 Building Block 매개 변수 파일에서 매개 변수 값이 성공적으로 변경되었는지 확인합니다.
 
-    ```sh
+```sh
     cat ./reference-architectures/virtual-machines/single-vm/parameters/windows/single-vm.json
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 Azure Building Block을 사용하여 Windows Server 2016 Azure VM을 배포합니다.
 
-    ```sh
+```sh
     azbb -g $RESOURCE_GROUP -s $SUBSCRIPTION_ID -l $LOCATION -p ./reference-architectures/virtual-machines/single-vm/parameters/windows/single-vm.json --deploy
-    ```
+```
 
 1. 다음 작업을 진행하기 전에 배포가 완료될 때까지 기다립니다.
 
@@ -573,15 +579,15 @@ lab:
 
 1.  **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 이 배포에 사용할 Azure Building Block 매개 변수 파일의 내용을 봅니다.
 
-    ```sh
+```sh
     cat ./reference-architectures/virtual-machines/single-vm/parameters/linux/single-vm.json
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 Linux VM에 액세스할 때 인증하는 데 사용할 SSH 키 쌍을 생성합니다.
 
-    ```sh
+```sh
     ssh-keygen -t rsa -b 2048
-    ```
+```
 
     - 키를 저장할 파일을 입력하라는 메시지가 표시되면 **엔터** 를 눌러 기본값 **(~/.ssh/id_rsa)** 을 수락합니다.
 
@@ -589,65 +595,65 @@ lab:
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 새로 생성된 키 쌍의 공개 키를 지정하는 변수를 만듭니다.
 
-    ```sh
+```sh
     PUBLIC_KEY=$(cat ~/.ssh/id_rsa.pub)
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 새로 생성된 키 쌍의 공개 키를 지정하고 공개 키에 포함될 수 있는 특수 문자를 고려하는 변수를 만듭니다.
 
-    ```sh
+```sh
     PUBLIC_KEY_REGEX="$(echo $PUBLIC_KEY | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')"
-    ```
+```
 
     > **참고**: **sed** 유틸리티를 사용하여 이 문자열을 Azure Building Blocks 매개 변수 파일에 삽입할 때 필요합니다. 또는 파일을 열고 공개 키 문자열을 파일에 직접 입력할 수 있습니다.
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 Azure 구독의 이름을 지정하는 변수를 만듭니다.
 
-    ```sh
-    SUBSCRIPTION_ID=$(az account list --query "[0].id" | tr -d '"')
-    ```
+```sh
+    SUBSCRIPTION_ID=$(az account list --query "[0].id" --output tsv | tr -d '"')
+```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 배포에 사용할 리소스 그룹의 이름을 지정하는 변수를 만듭니다.
 
-    ```sh
+```sh
     RESOURCE_GROUP='AADesignLab0304-RG'
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 배포에 사용할 Azure 영역을 지정하는 변수를 만듭니다.
 
-    ```sh
+```sh
     LOCATION=$(az group list --query "[?name == 'AADesignLab0301-RG'].location" --output tsv)
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 **adminUsername** 매개 변수의 자리 표시자를 Building Blocks 매개 변수 파일의 **학생** 값으로 바꿉니다.
 
-    ```sh
+```sh
     sed -i.bak1 's/"adminUsername": ""/"adminUsername": "Student"/' ./reference-architectures/virtual-machines/single-vm/parameters/linux/single-vm.json
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 **sshPublicKey** 매개 변수의 자리 표시자를 Building Blocks 매개 변수 파일의 **$PUBLIC_KEY_REGEX** 변수 값으로 바꿉니다.
 
-    ```sh
+```sh
     sed -i.bak2 's/"sshPublicKey": ""/"sshPublicKey": "'"$PUBLIC_KEY_REGEX"'"/' ./reference-architectures/virtual-machines/single-vm/parameters/linux/single-vm.json
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 Building Block 매개 변수 파일에서 매개 변수 값이 성공적으로 변경되었는지 확인합니다.
 
-    ```sh
+```sh
     cat ./reference-architectures/virtual-machines/single-vm/parameters/linux/single-vm.json
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 새 리소스 그룹을 만듭니다.
 
-    ```sh
+```sh
     az group create --name $RESOURCE_GROUP --location $LOCATION
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 Azure Building Blocks를 사용함으로써 Linux Azure VM을 배포합니다.
 
-    ```sh
+```sh
     azbb -g $RESOURCE_GROUP -s $SUBSCRIPTION_ID -l $LOCATION -p ./reference-architectures/virtual-machines/single-vm/parameters/linux/single-vm.json --deploy
-    ```
+```
 
 1. 다음 작업을 진행하기 전에 배포가 완료될 때까지 기다립니다.
 
@@ -681,9 +687,9 @@ lab:
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 이 랩에서 생성한 모든 리소스 그룹을 나열합니다.
 
-    ```sh
+```sh
     az group list --query "[?starts_with(name,'AADesignLab03')]".name --output tsv
-    ```
+```
 
 1. 출력에 이 랩에서 만든 리소스 그룹만 포함되어 있는지 확인합니다. 이러한 그룹은 다음 작업에서 삭제됩니다.
 
@@ -691,9 +697,9 @@ lab:
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터** 를 눌러 이 랩에서 만든 리소스 그룹을 삭제합니다. 
 
-    ```sh
+```sh
     az group list --query "[?starts_with(name,'AADesignLab03')]".name --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
-    ```
+```
 
 1. 포털 하단에 있는 **Cloud Shell** 프롬프트를 닫습니다.
 

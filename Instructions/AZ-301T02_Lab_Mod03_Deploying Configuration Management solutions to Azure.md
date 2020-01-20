@@ -76,7 +76,7 @@ lab:
 
 1. **열기** 대화 상자에서 **\\allfiles\\AZ-301T02\\Module_03\\LabFiles\\Starter\\** 폴더로 이동하여 **linux-template.json** 파일을 선택하고 **열기** 를 클릭합니다. 이 화일에는 다음 템플릿이 포함되어 있습니다.
 
-    ''json
+```json
     {
         "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
         "contentVersion": "1.0.0.0",
@@ -127,14 +127,14 @@ lab:
                         {
                             "name": "[variables('subnetName')]",
                             "properties": {
-                                "addressPrefix": "10.0.0.0/16"
+                                "addressPrefix": "10.0.0.0/24"
                             }
                         }
                     ]
                 }
             },
             {
-                "apiVersion": "2017-06-01",
+                "apiVersion": "2017-10-01",
                 "type": "Microsoft.Network/networkInterfaces",
                 "name": "[variables('nicName')]",
                 "location": "[resourceGroup().location]",
@@ -160,7 +160,7 @@ lab:
                 }
             },
             {
-                "apiVersion": "2017-06-01",
+                "apiVersion": "2017-03-30",
                 "type": "Microsoft.Compute/virtualMachines",
                 "name": "[variables('vmName')]",
                 "location": "[resourceGroup().location]",
@@ -193,31 +193,31 @@ lab:
             }
         ]
     }
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 를 눌러 허브 가상 네트워크를 포함하는 리소스 그룹의 이름을 지정하는 변수를 만듭니다.
 
-    ```sh
+```sh
     RESOURCE_GROUP='AADesignLab1202-RG'
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 를 눌러 배포에 사용할 Azure 영역을 지정하는 변수를 만듭니다(자리 표시자 `<Azure region>`를 A이 랩에서 리소스를 배포하려는 Azure 영역의 이름으로 바꿉니다.)
 
-    ```sh
+```sh
     LOCATION='<Azure region>'
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 를 눌러 새 리소스 그룹을 만듭니다.   
 
-    ```sh
+```sh
     az group create --name $RESOURCE_GROUP --location $LOCATION
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 를 눌러 지정된 매개 변수 파일을 사용하여 Azure Resource Manager 템플릿을 배포합니다.
 
-    ```sh
+```sh
     az group deployment create --resource-group $RESOURCE_GROUP --template-file ~/linux-template.json --parameters password=Pa55w.rd1234
-    ```
+```
 
 1. 다음 작업을 진행하기 전에 배포가 완료될 때까지 기다리지 않아도 됩니다.
 
@@ -290,7 +290,7 @@ lab:
 
     - **구성 파일** 필드 옆의 폴더 아이콘이 있는 파란색 버튼을 클릭합니다. 
 
-    - **업로드할 파일 선택** 대화 상자에서 **\\allfiles\\AZ-301T02\\Module_02\\LabFiles\\Starter\\** 폴더로 이동합니다. 
+    - **업로드할 파일 선택** 대화 상자에서 **\\allfiles\\AZ-301T02\\Module_03\\LabFiles\\Starter\\** 폴더로 이동합니다. 
 
     - **lampserver.ps1** 파일을 선택합니다.
 
@@ -357,9 +357,9 @@ lab:
 
 1. 포털 하단의 **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 를 눌러 이 랩에서 만든 모든 리소스 그룹을 나열합니다.
 
-    ```sh
+```sh
     az group list --query "[?starts_with(name,'AADesignLab12')]".name --output tsv
-    ```
+```
 
 1. 출력에 이 랩에서 만든 리소스 그룹만 포함되어 있는지 확인합니다. 이러한 그룹은 다음 작업에서 삭제됩니다.
 
@@ -367,9 +367,9 @@ lab:
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 를 눌러 이 랩에서 만든 리소스 그룹을    삭제합니다.
 
-    ```sh
+```sh
     az group list --query "[?starts_with(name,'AADesignLab12')]".name --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
-    ```
+```
 
 1. 포털 하단의 **Cloud Shell** 프롬프트를  닫습니다.
 

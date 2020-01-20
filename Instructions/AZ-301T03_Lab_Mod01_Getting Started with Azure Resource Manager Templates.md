@@ -58,7 +58,7 @@ s
 
 1. **업로드할 파일 선택** 대화 상자에서 **\\allfiles\\AZ-301T03\\Module_01\\Labfiles\\Starter\\** 폴더로 이동하고 **vnet-simple-template.json** 파일을 선택한 다음 **열기**를 클릭합니다. 이렇게 하면 다음 콘텐츠가 템플릿 편집기 창에 로드됩니다.
 
-    ```json
+```json
     {
         "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
         "contentVersion": "1.0.0.0",
@@ -125,7 +125,7 @@ s
             }
         ]
     }
-    ```
+```
 
 1. **저장** 단추를 클릭하여 템플릿을 유지합니다.
 
@@ -186,7 +186,7 @@ s
 
     - **Cloud Shell 지역** 드롭다운 목록에서 이 랩에서 리소스를 배포한 위치와 일치하거나 가까운 Azure 지역을 선택합니다.
 
-    - 리소스 그룹: **새로 만들기** 옵션을 선택하고 텍스트 상자에 **AADesignLab0202-RG**를 입력합니다.
+    - 리소스 그룹: **기존 항목 사용** 옵션이 선택되어 있는지 확인하고 **AADesignLab0201-RG** 를 선택합니다.
 
     - **스토리지 계정** 섹션에서 **새로 만들기** 옵션을 선택한 다음 아래 텍스트 상자에 3~24자 길이의 문자와 숫자 조합으로 구성된 고유한 이름을 입력합니다. 
 
@@ -201,41 +201,41 @@ s
 
 1. 포털 하단에 있는 **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 Azure Building Blocks npm 패키지를 설치하기 위한 로컬 디렉터리를 만듭니다.
 
-    ```sh
+```sh
     mkdir ~/.npm-global
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 새 로컬 디렉터리를 포함하도록 npm 구성을 업데이트합니다.
 
-    ```sh
+```sh
     npm config set prefix '~/.npm-global'
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 ~./bashrc 구성 파일을 편집할 수 있도록 엽니다.
 
-    ```sh
+```sh
     vi ~/.bashrc
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트의 vi 편집기 인터페이스에서 파일 맨 아래로 스크롤하고(또는 **G**를 입력하고), 마지막 줄의 맨 오른쪽 문자 다음으로 스크롤하고(또는 **$**를 입력하고), **a**를 입력하여 **INSERT** 모드로 진입하고, **Enter** 키를 눌러 새 줄을 시작한 후 다음을 입력하여 새로 만든 디렉터리를 시스템 경로에 추가합니다.
 
-    ```sh
+```sh
     export PATH="$HOME/.npm-global/bin:$PATH"
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트의 vi 편집기 인터페이스에서 변경 내용을 저장하고 파일을 닫기 위해 **Esc** 키를 누르고, **:**을 누르고, **wq!**를 입력한 후 **Enter** 키를 누릅니다.
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 Azure Building Blocks npm 패키지를 설치합니다.
 
-    ```sh
+```sh
     npm install -g @mspnp/azure-building-blocks
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 셸을 종료합니다.
 
-    ```sh
+```sh
     exit
-    ```
+```
 
 1. **Cloud Shell 시간 초과됨** 창에서 **다시 연결**을 클릭합니다. 
 
@@ -246,39 +246,44 @@ s
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 Azure Building Blocks 템플릿이 포함된 GitHub 리포지토리를 다운로드합니다.
 
-    ```sh
+```sh
     git clone https://github.com/mspnp/template-building-blocks.git
-    ```
+```
 
 1.  **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 이 배포에 사용할 Azure Building Block 매개 변수 파일의 내용을 표시합니다.
 
-    ```sh
+```sh
     cat ./template-building-blocks/scenarios/vnet/vnet-simple.json 
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 Azure 구독의 이름을 지정하는 값에 대한 변수를 만듭니다.
 
-    ```sh
+```sh
     SUBSCRIPTION_ID=$(az account list --query "[0].id" | tr -d '"')
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 이 연습의 앞부분에서 만든 리소스 그룹의 이름을 지정하는 값에 대한 변수를 만듭니다.
 
-    ```sh
+```sh
     RESOURCE_GROUP='AADesignLab0202-RG'
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 배포에 사용할 Azure 지역을 지정하는 값에 대한 변수를 만듭니다.
 
-    ```sh
+```sh
     LOCATION=$(az group list --query "[?name == 'AADesignLab0201-RG'].location" --output tsv)
-    ```
+```
 
+1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 **AADesignLab0202-RG** 리소스 그룹을 만듭니다.
+
+```sh
+    az group create --location $LOCATION --name $RESOURCE_GROUP
+```
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 Azure Building Blocks를 사용하여 가상 네트워크를 배포합니다.
 
-    ```sh
+```sh
     azbb -g $RESOURCE_GROUP -s $SUBSCRIPTION_ID -l $LOCATION -p ./template-building-blocks/scenarios/vnet/vnet-simple.json --deploy
-    ```
+```
 
 1. 다음 작업을 진행하기 전에 배포가 완료될 때까지 기다립니다.
 
@@ -297,7 +302,7 @@ s
 
 1. **Cloud Shell** 창을 닫습니다.
 
-> **복습**: 이 연습에서는 Azure Portal에서 Azure Resource Manager 템플릿을 사용하여 Azure 가상 네트워크를 배포했습니다.
+> **복습**: 이 연습에서는 Cloud Shell에서 Azure Building Blocks 템플릿을 사용하여 Azure 가상 네트워크를 배포했습니다.
 
 
 ## 연습 3: 랩 리소스 제거
@@ -307,18 +312,18 @@ s
 1. 포털 상단에서 **Cloud Shell** 아이콘을 클릭하여 Cloud Shell 창을 엽니다.
 
 1. 포털 하단에 있는 **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 이 랩에서 만든 모든 리소스 그룹을 나열합니다.
-    ```sh
+```sh
     az group list --query "[?starts_with(name,'AADesignLab02')]".name --output tsv
-    ```
+```
 
 1. 출력에 이 랩에서 만든 리소스 그룹만 포함되어 있는지 확인합니다. 이러한 그룹은 다음 작업에서 삭제됩니다.
 
 #### 작업 2: 리소스 그룹 삭제
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 이 랩에서 만든 리소스 그룹을 삭제합니다.
 
-    ```sh
+```sh
     az group list --query "[?starts_with(name,'AADesignLab02')]".name --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
-    ```
+```
 
 1. 포털 하단에 있는 **Cloud Shell** 프롬프트를 닫습니다.
 

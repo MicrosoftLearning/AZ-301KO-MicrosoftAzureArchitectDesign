@@ -71,6 +71,10 @@ lab:
 1. 다음 단계로 진행하기 전에 프로비저닝이 완료될 때까지 기다립니다.
 
     > **참고**: 배포는 5분 미만이 소요됩니다.
+    
+1. 새로 만들어진 Cosmos DB 계정의 블레이드로 이동하고 **키**를 클릭합니다.
+
+1. Cosmos DB 계정 키 블레이드에서 **기본 연결 문자열** 값을 기록합니다. 이 랩의 세 번째 연습에서 이 값이 필요합니다.
 
 1. 포털 상단에서 **Cloud Shell** 아이콘을 클릭하여 새 shell  인스턴스를 엽니다. 
 
@@ -98,53 +102,52 @@ lab:
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 를 눌러 이 작업에서 이전에 배포한 Azure Cosmos DB 계정을 포함하는 리소스 그룹의 이름을 지정하는 변수를   만듭니다. 
 
-    ```
+```
     RESOURCE_GROUP='AADesignLab0701-RG'
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 를 눌러 이 작업의 앞에서 만든 CosmosDB 계정의 이름을 지정하는 값을 만드는 변수를    만듭니다.
 
-    ```sh
+```sh
     COSMOSDB_NAME=$(az cosmosdb list --resource-group $RESOURCE_GROUP --query "[0].name" --output tsv)
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 를 눌러 이 작업의 앞에서 만든 CosmosDB 계정의 기본 키를 지정하는 변수를 만듭니다.
 
-    ```sh
-    PRIMARY_KEY=$(az cosmosdb list-keys --resource-group $RESOURCE_GROUP --name $COSMOSDB_NAME | jq -r '.primaryMasterKey')
-    ```
+```sh
+    PRIMARY_KEY=$(az cosmosdb keys list --resource-group $RESOURCE_GROUP --name $COSMOSDB_NAME --output json | jq -r '.primaryMasterKey')
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 를 눌러 이 작업에서 앞에서 만든 CosmosDB 계정의 URI를 지정하는 변수를 만듭니다.
 
-    ```sh
+```sh
     URI="https://$COSMOSDB_NAME.documents.azure.com:443/"
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 를 눌러 **FinancialClubDatabase** 라는 새 CosmosDB 데이터베이스를    만듭니다.
 
-    ```sh
+```sh
     az cosmosdb database create --url-connection $URI --key $PRIMARY_KEY --db-name 'FinancialClubDatabase'
-    ```
+```
     
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 를 눌러 새로 만든 데이터베이스에서 **MemberCollection** 이라는 고정 컬렉션을 만듭니다.
 
-    ```sh
+```sh
     az cosmosdb collection create --url-connection $URI --key $PRIMARY_KEY --db-name 'FinancialClubDatabase' --collection-name 'MemberCollection' --throughput 400
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 를 눌러 PRIMARY_KEY 변수의 값을 표시합니다.
 
-    ```sh
+```sh
     echo $PRIMARY_KEY
-    ```
+```
     
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 를 눌러 URI 변수의 값을  표시합니다.
 
-    ```sh
+```sh
     echo $URI
-    ```
-
-    > **참고**: 이러한 값을 기록해 두십시오 - 다음 연습에서 이 값이 필요합니다. 
+```
+    > **참고**: 이러한 값을 기록해 두십시오. 이 랩의 세 번째 연습에서 이 값이 필요합니다. 
 
 
 #### 작업 3: Cosmos DB에서 문서 생성 및 쿼리
@@ -157,9 +160,9 @@ lab:
 
 1. 열린 **쿼리 1** 탭에서 기본 쿼리를 봅니다. 
 
-    ```sql
+```sql
     SELECT * FROM c
-    ```
+```
 
 1. 쿼리 편집기 상단의 **쿼리 실행** 버튼을  클릭합니다.
 
@@ -171,16 +174,16 @@ lab:
 
 1. **항목** 탭에서 기존 문서를 다음 문서로 바꿉니다.
 
-    ```json
+```json
     {
-        "firstName": "페닝턴",
-        "lastName": "일랄",
+        "firstName": "Pennington",
+        "lastName": "Oneal",
         "age": 26,
         "salary": 90000.00,
-        "company": "베라크",
+        "company": "Veraq",
         "isVested": false
     }
-    ```
+```
 
 1. **항목** 탭 상단의 **저장** 버튼을 클릭합니다.
 
@@ -188,13 +191,13 @@ lab:
 
 1. **항목** 탭에서 기존 문서를 다음 문서로 바꿉니다.
 
-    ```json
+```json
     {
-        "firstName": "수잔",
-        "lastName": "일랄",
-        "company": "베라크"
+        "firstName": "Suzanne",
+        "lastName": "Oneal",
+        "company": "Veraq"
     }
-    ```
+```
 
 1. **항목** 탭 상단의 **저장** 버튼을 클릭합니다.
 
@@ -202,7 +205,7 @@ lab:
 
 1. 쿼리 편집기에서 기본 쿼리를 다음 쿼리로 바꿉꿉입니다.
 
-    ```sql
+```sql
     SELECT 
         c.id, 
         c.firstName, 
@@ -213,13 +216,13 @@ lab:
         c
     WHERE
         IS_DEFINED(c.isVested)
-    ```
+```
 
 1. 쿼리 편집기 상단의 **쿼리 실행** 버튼을 클릭하고 결과를 검토합니다. 
 
 1. 쿼리 편집기에서 기존 쿼리를 다음 쿼리로 바꿉니다.
 
-    ```sql
+```sql
     SELECT 
         c.id, 
         c.firstName, 
@@ -229,30 +232,30 @@ lab:
         c
     WHERE
         c.age > 20
-    ```
+```
 
 1. 쿼리 편집기 상단의 **쿼리 실행** 버튼을 클릭하고 결과를 검토합니다.
 
 1. 쿼리 편집기에서 기존 쿼리를 다음 쿼리로 바꿉니다.
 
-    ```sql
+```sql
     SELECT VALUE 
         c.id 
     FROM
         c
-    ```
+```
 
 1. 쿼리 편집기 상단의 **쿼리 실행** 버튼을 클릭하고 결과를 검토합니다.
 
 1. 쿼리 편집기에서 기존 쿼리를 다음 쿼리로 바꿉니다.
 
-    ```sql
+```sql
     SELECT VALUE { 
         "badgeNumber": SUBSTRING(c.id, 0, 8),
         "company": c.company,
         "fullName": CONCAT(c.firstName, " ", c.lastName)
     } FROM c
-    ```
+```
 
 1. 쿼리 편집기 상단의 **쿼리 실행** 버튼을 클릭하고 결과를 검토합니다.
 
@@ -322,7 +325,7 @@ lab:
 
     > **참고**: API 앱이 완전히 다시 시작되기 전에 **찾아보기** 단추를 클릭하면 이 작업의 나머지 단계를 따르지 못할 수 있습니다.  이 경우 API 앱이 다시 실행될 때까지 브라우저를 새로 고침됩니다.
 
-1.  **Swagger UI** 홈페이지에서 **GET/문서** 를  클릭합니다. 
+1. **Swagger UI** 홈페이지에서 **GET/문서** 를  클릭합니다. 
 
 1. **시도하기!** 버튼을  클릭합니다.
 
@@ -332,11 +335,11 @@ lab:
 
 1. **매개 변수** 섹션의 **옵션** 매개 변수에 대한 **값** 필드에 다음  JSON 내용을 붙여 넣습니다.     
 
-    ```json
+```json
     {
         "quantity": 50
     }
-    ```
+```
 
 1. **응답 메시지** 섹션에서 **시도하기!** 를 클릭합니다.   
 
@@ -375,11 +378,11 @@ lab:
 
     - **위치** 드롭다운 목록에서 이 랩의 앞에서 Cosmos DB 리소스를 배포한 위치와 일치하거나 또는가까운 Azure 지역을  선택합니다.
 
-    -  **가격 책정 계층** 을 클릭합니다.
+    - **가격 책정 계층 변경**을 클릭합니다.
 
-    - **가격 책정 계층 선택** 블레이드에서 **무료** 를 클릭한 다음 **선택** 버튼을 클릭합니다.
+    - **가격 책정 계층 선택** 블레이드에서 **무료**를 클릭한 다음 **선택** 단추를 클릭합니다.
 
-    - **만들기** 버튼을 클릭합니다.
+    - **검토 + 만들기** 단추를 클릭하고 설정을 검토한 다음 **만들기**를 클릭합니다.
 
 1. 다음 단계로 진행하기 전에 프로비저닝이 완료될 때까지 기다립니다.
 
@@ -400,17 +403,18 @@ lab:
 
 1. **리소스 그룹** 블레이드에서 **AADesignLab0701-RG** 를  클릭합니다.
 
-1.  **AADesignLab0701-RG** 블레이드에서 이 랩의 앞에서 만든 Azure Cosmos DB 계정을 나타내는 항목을 클릭합니다. 
+1. **AADesignLab0701-RG** 블레이드에서 이 랩의 앞에서 만든 Azure Search 인스턴스를 나타내는 항목을 클릭합니다.
 
-1. Azure Cosmos DB 계정 블레이드에서 **Azure Search 추가** 를 클릭합니다.
-
-1. 검색 서비스 선택 탭에서 이전에 만든 Azure 검색 서비스를 선택한 다음 **다음** 을 클릭합니다.**데이터에 연결**
+1. Azure Search 서비스의 **개요** 블레이드에서 **데이터 가져오기**를 클릭한 후 **다음: 데이터에 연결**을 클릭합니다.
 
 1. **데이터에 연결** 탭에서 다음 작업을 수행합니다.
 
+    - **데이터 원본** 드롭다운 목록에서 **Cosmos DB** 를 선택합니다.
+
     - **이름** 텍스트 상자에 **cosmosdata** 을 입력합니다.
 
-    -  **Cosmos DB 계정** 텍스트 상자에서 항목을 수락합니다. 
+
+    - **Cosmos DB 계정** 텍스트 상자에 이 랩의 앞부분에서 식별한 Cosmos DB 계정 연결 문자열을 입력합니다.
 
     - **데이터베이스** 드롭다운 목록에서 **FinancialClubDatabase** 항목을 선택합니다. 
 
@@ -471,7 +475,7 @@ lab:
 
     -  **시작 시간(UTC)** 필드에서 현재 날짜를 지정하고 시간 항목의 기본값을 수락합니다. 
 
-    - **제출** 버튼을 클릭합니다.
+    - **삭제 추적** 확인란을 선택 취소했는지 확인하고 **제출** 단추를 클릭합니다.
 
 #### 작업 3: API 앱 유효성 검사
 
@@ -507,9 +511,9 @@ lab:
 
 1. **매개 변수** 섹션에서 **쿼리** 매개 변수의 **값** 텍스트 상자에 다음 텍스트를 입력합니다.
 
-    ```
+```
     Oneal
-    ```
+```
 
 1. **응답 메시지** 섹션에서 **시도하기!** 를 클릭합니다.
 
@@ -517,9 +521,9 @@ lab:
 
 1. **매개 변수** 섹션에서 **쿼리** 매개 변수의 **값** 텍스트 상자에 다음 텍스트를 입력합니다.
 
-    ```
+```
     penn*
-    ```
+```
 
 1. **응답 메시지** 섹션에서 **시도하기!** 를 클릭합니다.
 

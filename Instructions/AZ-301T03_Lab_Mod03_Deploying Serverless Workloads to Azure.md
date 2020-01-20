@@ -72,47 +72,49 @@ lab:
 
 1. 포털 하단에 있는 **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 이 연습에 사용할 리소스 그룹의 이름을 지정하는 값에 대한 변수를 만듭니다.
 
-    ```sh
+```sh
     RESOURCE_GROUP_APP='AADesignLab0502-RG'
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 배포에 사용할 Azure 지역을 지정하는 값에 대한 변수를 만듭니다(메시지가 표시되면 지역 이름 입력).
 
-    ```sh
+```sh
     read -p 'Region: ' LOCATION
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 리소스 그룹을 만듭니다.
 
-    ```sh
+```sh
     az group create --name $RESOURCE_GROUP_APP --location $LOCATION
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 새 App Service 계획을 만듭니다.
 
-    ```sh
+```sh
     az appservice plan create --is-linux --name "AADesignLab0502-$LOCATION" --resource-group $RESOURCE_GROUP_APP --location $LOCATION --sku B2
-    ```
+```
 
+    > **참고**: 명령이 실패하고 *리소스 그룹 AADesignLab0502-RG에서는 Linux 작업자를 사용할 수 없습니다. 자세히 알아보려면 https://go.microsoft.com/fwlink/?linkid=831180 링크를 참조하세요.* 메시지가 나타나면 리소스 그룹을 삭제하고 **LOCATION** 을 **eastus** 로 설정하고 이전 두 단계를 다시 실행하십시오.
+    
 #### 작업 4: 웹앱 인스턴스 만들기
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 Linux 기반 App Service 웹앱 인스턴스에 사용 가능한 런타임 목록을 표시합니다. 
 
-    ```sh
-    az webapp list-runtimes --linux
-    ``` 
+```sh
+    az webapp list-runtimes --linux --output tsv
+``` 
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 새 웹앱의 이름으로 사용할 무작위로 생성된 문자열 값에 대한 새 변수를 만듭니다.
 
-    ```sh
+```sh
     WEBAPPNAME1=webapp05021$RANDOM$RANDOM
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 고유한 이름을 사용하여 새 웹앱을 만듭니다.
 
-    ```sh
+```sh
     az webapp create --name $WEBAPPNAME1 --plan AADesignLab0502-$LOCATION --resource-group $RESOURCE_GROUP_APP --runtime "DOTNETCORE|2.1"
-    ```
+```
 
     > **참고**: 중복된 웹앱 이름으로 인해 명령이 실패하는 경우 명령이 성공적으로 완료될 때까지 마지막 두 단계를 다시 실행합니다.
 
@@ -143,27 +145,27 @@ lab:
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 이 연습에서 사용할 리소스 그룹의 이름을 지정하는 값에 대한 변수를 만듭니다.
 
-    ```sh
+```sh
     RESOURCE_GROUP_APP='AADesignLab0502-RG'
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 배포에 사용할 Azure 지역을 지정하는 값에 대한 변수를 만듭니다.
 
-    ```sh
+```sh
     LOCATION=$(az group list --query "[?name == 'AADesignLab0502-RG'].location" --output tsv)
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 새 웹앱의 이름으로 사용할 무작위로 생성된 문자열 값에 대한 새 변수를 만듭니다.
 
-    ```sh
+```sh
     WEBAPPNAME2=webapp05022$RANDOM$RANDOM
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 고유한 이름을 사용하여 새 웹앱을 만듭니다.
 
-    ```sh
+```sh
     az webapp create --name $WEBAPPNAME2 --plan AADesignLab0502-$LOCATION --resource-group $RESOURCE_GROUP_APP --runtime "NODE|9.4"
-    ```
+```
 
     > **참고**: 중복된 웹앱 이름으로 인해 명령이 실패하는 경우 명령이 성공적으로 완료될 때까지 마지막 두 단계를 다시 실행합니다.
 
@@ -172,7 +174,7 @@ lab:
 
 1. **열기** 대화 상자에서 **\\allfiles\\AZ-301T03\\Module_03\\Labfiles\\Starter\\** 폴더로 이동하고 **github.json** 파일을 선택한 다음 **열기** 를 클릭합니다. 파일에는 다음과 같은 Azure Resource Manager 템플릿이 포함되어 있습니다.
 
-    ```json
+```json
     {
         "$schema": "http://schemas.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
         "contentVersion": "1.0.0.0",
@@ -213,13 +215,13 @@ lab:
             }
         ]
     }
-    ```
+```
 
 1. **Cloud Shell** 창에서 **파일 업로드/다운로드** 아이콘을 클릭하고 드롭다운 메뉴에서 **업로드** 를 클릭합니다. 
 
 1. **열기** 대화 상자에서 **\\allfiles\\AZ-301T03\\Module_03\\Labfiles\\Starter\\** 폴더로 이동하고 **parameters.json** 파일을 선택한 다음 **열기** 를 클릭합니다. 이 파일에는 이전에 업로드한 Azure Resource Manager 템플릿에 대한 다음과 같은 매개 변수가 포함되어 있습니다.
 
-    ```json
+```json
     {
       "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
       "contentVersion": "1.0.0.0",
@@ -235,45 +237,45 @@ lab:
         }
       }
     }
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 웹앱 코드를 호스팅하는 GitHub 리포지토리의 이름을 지정하는 값에 대한 변수를 만듭니다.
 
-    ```sh
+```sh
     REPOSITORY_URL='https://github.com/Azure-Samples/nodejs-docs-hello-world'
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 웹앱 코드를 호스팅하는 GitHub 리포지토리의 이름을 지정하는 값을 포함하고 URL에 포함될 수 있는 특수 문자를 고려하는 변수를 만듭니다.
 
-    ```sh
+```sh
     REPOSITORY_URL_REGEX="$(echo $REPOSITORY_URL | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')"
-    ```
+```
 
     > **참고**: 이 변수는 **sed** 유틸리티를 사용하여 이 문자열을 Azure Resource Manager 템플릿 매개 변수 파일에 삽입하기 위해 필요합니다. 또는 파일을 열고 URL 문자열을 파일에 직접 입력할 수 있습니다.
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 **webAppName** 매개 변수 값의 자리 표시자를 매개 변수 파일의 **$WEBAPPNAME2** 변수 값으로 바꿉니다.
 
-    ```sh
+```sh
     sed -i.bak1 's/"$WEBAPPNAME2"/"'"$WEBAPPNAME2"'"/' ~/parameters.json
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 **repositoryUrl** 매개 변수 값의 자리 표시자를 매개 변수 파일의 **$REPOSITORY_URL** 변수 값으로 바꿉니다.
 
-    ```sh
+```sh
     sed -i.bak2 's/"$REPOSITORY_URL"/"'"$REPOSITORY_URL_REGEX"'"/' ~/parameters.json
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 매개 변수 파일에서 자리 표시자가 성공적으로 바뀌었는지 확인합니다.
 
-    ```sh
+```sh
     cat ~/parameters.json
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 로컬 Azure Resource Manager 템플릿과 로컬 매개 변수 파일을 사용하여 GitHub 상주 웹앱 코드를 배포합니다.
 
-    ```sh
+```sh
     az group deployment create --resource-group $RESOURCE_GROUP_APP --template-file github.json --parameters @parameters.json
-    ```
+```
 
 1. 다음 작업을 진행하기 전에 배포가 완료될 때까지 기다립니다.
 
@@ -297,27 +299,27 @@ lab:
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 이 작업에서 사용할 리소스 그룹의 이름을 지정하는 값에 대한 변수를 만듭니다.
 
-    ```sh
+```sh
     RESOURCE_GROUP_CONTAINER='AADesignLab0502-RG'
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 배포에 사용할 Azure 지역을 지정하는 값에 대한 변수를 만듭니다.
 
-    ```sh
+```sh
     LOCATION=$(az group list --query "[?name == 'AADesignLab0502-RG'].location" --output tsv)
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 새 웹앱의 이름으로 사용할 무작위로 생성된 문자열 값에 대한 새 변수를 만듭니다.
 
-    ```sh
+```sh
     WEBAPPNAME3=webapp05023$RANDOM$RANDOM
-    ```
+```
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 고유한 이름을 사용하여 새 웹앱을 만듭니다.
 
-    ```sh
+```sh
     az webapp create --name $WEBAPPNAME3 --plan AADesignLab0502-$LOCATION --resource-group $RESOURCE_GROUP_CONTAINER --deployment-container-image ghost
-    ```
+```
 
     > **참고**: 중복된 웹앱 이름으로 인해 명령이 실패하는 경우 명령이 성공적으로 완료될 때까지 마지막 두 단계를 다시 실행합니다.
 
@@ -421,9 +423,9 @@ lab:
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 이 랩에서 만든 모든 리소스 그룹을 나열합니다.
 
-    ```sh
+```sh
     az group list --query "[?starts_with(name,'AADesignLab05')]".name --output tsv
-    ```
+```
 
 1. 출력에 이 랩에서 만든 리소스 그룹만 포함되어 있는지 확인합니다. 이러한 그룹은 다음 작업에서 삭제됩니다.
 
@@ -431,9 +433,9 @@ lab:
 
 1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 이 랩에서 만든 리소스 그룹을 삭제합니다.
 
-    ```sh
+```sh
     az group list --query "[?starts_with(name,'AADesignLab05')]".name --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
-    ```
+```
 
 1. 포털 하단에 있는 **Cloud Shell** 프롬프트를 닫습니다.
 
