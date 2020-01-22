@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: 'Azure 솔루션에 사용할 네트워크 인프라 배포'
     module: '모듈 3: Azure 응용 프로그램 구성 요소 네트워킹'
@@ -113,11 +113,11 @@ lab:
     > **참고**: Buliding Blocks npm 패키지를 설치하려면 Cloud Shell을 다시 시작해야 합니다.
 
 
-#### 작업 3: Building Blocks Hub 및 Spoke 매개 변수 파일 준비합니다.
+#### 작업 4: Building Blocks Hub 및 Spoke 매개 변수 파일 준비합니다.
 
 1. **Cloud Shell** 창에서 **파일 업로드/다운로드** 아이콘을 클릭하고 드롭다운 메뉴에서 **업로드**를 클릭합니다. 
 
-1. **열기** 대화상자에서 **\\allfiles\\AZ-301T04\\Module_03\\LabFiles\\Starter\\**폴더로 이동하여 **hub-nva.json**, **hub-vnet.json**, **hub-vnet-peering.json**, **spoke1.json** 및 **spoke2.json** 파일을 선택한 다음, **열기**를 클릭합니다. 
+1. **열기** 대화 상자에서, **\\allfiles\\AZ-301T04\\Module_03\\LabFiles\\Starter\\** 폴더로 이동하여 **hub-nva.json**을 선택하고 **열기**를 클릭하세요. 이를 반복하여 **hub-vnet.json**, **hub-vnet-peering.json**, **spoke1.json**, **spoke2.json** 파일을 업로드하세요.
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터**를 눌러 **adminUsername** 매개 변수의 자리 표시자를 **hub-vnet.json** Building Blocks 매개 변수 파일에서 **학생** 값으로 바꿉니다.
 
@@ -191,12 +191,12 @@ lab:
     cat ~/spoke2.json
     ```
 
-#### 작업 4: Hub 및 Spoke 설계 허브 구성 요소를 구현합니다
+#### 작업 5: Hub 및 Spoke 설계 허브 구성 요소를 구현합니다
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터**를 눌러 Azure 구독의 이름을 지정하는 변수를 만듭니다.
 
     ```sh
-    SUBSCRIPTION_ID=$(az account list --query "[0].id" | tr -d '"')
+    SUBSCRIPTION_ID=$(az account list --query "[0].id" --output tsv | tr -d '"')
     ```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터**를 눌러 허브 가상 네트워크를 포함할 리소스 그룹의 이름을 지정하는 변수를 만듭니다.
@@ -210,6 +210,12 @@ lab:
     ```sh
     LOCATION='<Azure region>'
     ```
+1. 在 **Cloud Shell** 命令提示符下，键入以下命令并按 **Enter**，创建用于部署的资源组.
+
+    ```sh
+    az group create --name $RESOURCE_GROUP_HUB_VNET --location $LOCATION
+    ```
+
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터**를 눌러 Azure Building Blocks를 사용함으로써 Hub-and-Spoke 토폴로지의 허브 구성 요소를 배포합니다.
 
@@ -220,7 +226,7 @@ lab:
 1. 배포가 완료되기까지 기다리지 말고 다음 작업으로 진행하십시오.
 
 
-#### 작업 5: Hub 및 Spoke 설계 스포크 구성 요소를 구현합니다
+#### 작업 6: Hub 및 Spoke 설계 스포크 구성 요소를 구현합니다
 
 1. 작업 표시줄에서 **Microsoft Edge** 아이콘을 클릭합니다.
 
@@ -233,7 +239,7 @@ lab:
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터**를 눌러 Azure 구독의 이름을 지정하는 변수를 만듭니다.
 
     ```sh
-    SUBSCRIPTION_ID=$(az account list --query "[0].id" | tr -d '"')
+    SUBSCRIPTION_ID=$(az account list --query "[0].id" --output tsv | tr -d '"')
     ```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터**를 눌러 첫 번째 스포크 가상 네트워크를 포함할 리소스 그룹의 이름을 지정하는 변수를 만듭니다.
@@ -246,6 +252,11 @@ lab:
 
     ```sh
     LOCATION=$(az group list --query "[?name == 'AADesignLab08-hub-vnet-rg'].location" --output tsv)
+    ```
+1. 在 **Cloud Shell** 命令提示符下，键入以下命令并按 **Enter**，创建用于部署的资源组:
+
+    ```sh
+    az group create --name $RESOURCE_GROUP_SPOKE1_VNET --location $LOCATION
     ```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터**를 눌러 Azure Building Blocks를 사용함으로써 Hub-and-Spoke 토폴로지의 첫 번째 스포크 구성 요소를 배포합니다.
@@ -267,7 +278,7 @@ lab:
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터**를 눌러 Azure 구독의 이름을 지정하는 변수를 만듭니다.
 
     ```sh
-    SUBSCRIPTION_ID=$(az account list --query "[0].id" | tr -d '"')
+    SUBSCRIPTION_ID=$(az account list --query "[0].id" --output tsv | tr -d '"')
     ```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터**를 눌러 두 번째 스포크 가상 네트워크를 포함할 리소스 그룹의 이름을 지정하는 변수를 만듭니다.
@@ -281,6 +292,11 @@ lab:
     ```sh
     LOCATION=$(az group list --query "[?name == 'AADesignLab08-hub-vnet-rg'].location" --output tsv)
     ```
+1. 在 **Cloud Shell** 命令提示符下，键入以下命令并按 **Enter**，创建用于部署的资源组:
+
+    ```sh
+    az group create --name $RESOURCE_GROUP_SPOKE2_VNET --location $LOCATION
+    ```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터**를 눌러 Azure Building Blocks를 사용함으로써 Hub-and-Spoke 토폴로지의 두 번째 스포크 구성 요소를 배포합니다.
 
@@ -290,7 +306,7 @@ lab:
 
 1. 배포가 완료되기까지 기다리지 말고 다음 작업으로 진행하십시오.
 
-#### 작업 6: Hub 및 Spoke 설계 VNet 피어링을 구성합니다.
+#### 작업 7: Hub 및 Spoke 설계 VNet 피어링을 구성합니다.
 
 1. 작업 표시줄에서 **Microsoft Edge** 아이콘을 클릭합니다.
 
@@ -303,7 +319,7 @@ lab:
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터**를 눌러 Azure 구독의 이름을 지정하는 변수를 만듭니다.
 
     ```sh
-    SUBSCRIPTION_ID=$(az account list --query "[0].id" | tr -d '"')
+    SUBSCRIPTION_ID=$(az account list --query "[0].id" --output tsv | tr -d '"')
     ```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터**를 눌러 허브 가상 네트워크를 포함하는 리소스 그룹의 이름을 지정하는 변수를 만듭니다.
@@ -327,7 +343,7 @@ lab:
 1. 배포가 완료되기까지 기다리지 말고 다음 작업으로 진행하십시오.
 
 
-#### 작업 7: Hub 및 Spoke 설계 라우팅을 구현합니다.
+#### 작업 8: Hub 및 Spoke 설계 라우팅을 구현합니다.
 
 1. 작업 표시줄에서 **Microsoft Edge** 아이콘을 클릭합니다.
 
@@ -340,7 +356,7 @@ lab:
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터**를 눌러 Azure 구독의 이름을 지정하는 변수를 만듭니다.
 
     ```sh
-    SUBSCRIPTION_ID=$(az account list --query "[0].id" | tr -d '"')
+    SUBSCRIPTION_ID=$(az account list --query "[0].id" --output tsv | tr -d '"')
     ```
 
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터**를 눌러 라우터 기능을 하는 허브 Network Virtual Appliance (NVA)를 포함할 리소스 그룹의 이름을 지정하는 값의 변수를 만듭니다.
@@ -354,7 +370,12 @@ lab:
     ```sh
     LOCATION=$(az group list --query "[?name == 'AADesignLab08-hub-vnet-rg'].location" --output tsv)
     ```
+1. 在 **Cloud Shell** 命令提示符下，键入以下命令，创建将在部署中使用的资源组.
 
+    ```sh
+    az group create --name $RESOURCE_GROUP_HUB_NVA --location $LOCATION
+    ```
+    
 1. **Cloud Shell** 명령 프롬프트에 다음 명령을 입력하고 **엔터**를 눌러 Azure Building Blocks를 사용함으로써 Hub-and-Spoke 토폴로지의 NVA 구성 요소를 배포합니다.
 
     ```sh
@@ -426,13 +447,11 @@ lab:
 
     - **가상 컴퓨터** 드롭다운 목록에서 기본 항목을 그대로 둡니다.
 
-    - **포트** 텍스트 상자를 비워 둡니다. 
-
     - **대상** 옵션이 **수동 지정**으로 설정되어 있는지 확인합니다.
 
     - **URI, FQDN 또는 IPv4** 텍스트 상자에 **10.2.0.68** 항목을 입력합니다.
 
-    - **포트** 텍스트에 3389를 입력합니다. 
+    - **대상 포트** 텍스트에 3389를 입력합니다. 
 
     - **확인** 버튼을 클릭합니다.
 
