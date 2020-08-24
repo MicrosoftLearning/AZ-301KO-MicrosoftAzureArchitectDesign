@@ -210,7 +210,7 @@ lab:
     ```sh
     LOCATION='<Azure region>'
     ```
-1. 在 **Cloud Shell** 命令提示符下，键入以下命令并按 **Enter**，创建用于部署的资源组.
+1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 배포에 사용할 리소스 그룹을 만듭니다.
 
     ```sh
     az group create --name $RESOURCE_GROUP_HUB_VNET --location $LOCATION
@@ -253,7 +253,7 @@ lab:
     ```sh
     LOCATION=$(az group list --query "[?name == 'AADesignLab08-hub-vnet-rg'].location" --output tsv)
     ```
-1. 在 **Cloud Shell** 命令提示符下，键入以下命令并按 **Enter**，创建用于部署的资源组:
+1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 배포에 사용할 리소스 그룹을 만듭니다.
 
     ```sh
     az group create --name $RESOURCE_GROUP_SPOKE1_VNET --location $LOCATION
@@ -292,7 +292,7 @@ lab:
     ```sh
     LOCATION=$(az group list --query "[?name == 'AADesignLab08-hub-vnet-rg'].location" --output tsv)
     ```
-1. 在 **Cloud Shell** 命令提示符下，键入以下命令并按 **Enter**，创建用于部署的资源组:
+1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 배포에 사용할 리소스 그룹을 만듭니다.
 
     ```sh
     az group create --name $RESOURCE_GROUP_SPOKE2_VNET --location $LOCATION
@@ -370,7 +370,7 @@ lab:
     ```sh
     LOCATION=$(az group list --query "[?name == 'AADesignLab08-hub-vnet-rg'].location" --output tsv)
     ```
-1. 在 **Cloud Shell** 命令提示符下，键入以下命令，创建将在部署中使用的资源组.
+1. **Cloud Shell** 명령 프롬프트에서 다음 명령을 입력하고 **Enter** 키를 눌러 배포에 사용할 리소스 그룹을 만듭니다.
 
     ```sh
     az group create --name $RESOURCE_GROUP_HUB_NVA --location $LOCATION
